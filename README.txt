@@ -4,8 +4,7 @@
 - Reccomend book
 - Reutrn what books are loaned to a specific member
 - Update bookReturn given bookID and memberID, rather than just bookID.
-- Update database to include loan date - -1 if unloaned.
-- Update Log to a CSV (makes reccomendations easier.) (I.e. Loan, MemberID, Book, Genre)
+- Update Log to a CSV (makes reccomendations easier.) (I.e. Loan Date, Return Date (-1 if unreturned), MemberID, Book, Genre)
 - Docstrings
 
 ~~~ Completed (or near enough) ~~~ 
