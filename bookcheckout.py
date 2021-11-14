@@ -1,4 +1,5 @@
 import database
+from datetime import date
 import re
 
 def bookCheckout(memberID, bookID):
@@ -20,7 +21,10 @@ def bookCheckout(memberID, bookID):
                 print("Book checked out, Updated database.")
 
                 with open('log.txt', 'a')as logFile:
-                    logFile.write(f"Book {bookID} loaned to {memberID}\n")
+                    currDate = date.today()
+                    currDate = currDate.strftime("%d/%m/%Y")
+                    genre = database.libraryDatabase[bookID][1]
+                    logFile.write(f"{currDate}, -1, {memberID}, {bookID}, {genre}")
             else:
                 print(f"Book currently loaned to {bookOut}")
         else:

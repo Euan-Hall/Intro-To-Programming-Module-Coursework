@@ -1,1 +1,2 @@
-Book 9 loaned to coai
+LoanDate, ReturnDate, MemberID, BookIDBook 10 returned
+14/11/2021, -1, coeh, 10, Non-Fiction
