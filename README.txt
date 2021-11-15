@@ -1,11 +1,11 @@
 ~~~ TO DO ~~~
-- Check if book is out for more than 60 days
+- Check if book is out for more than 60 days (make it a function to call, less coding innit)
+
+- Remove header from database while running, but not from CSV
 - Make GUI for library system
 - Reccomend book
-- Reutrn what books are loaned to a specific member
-- Update bookReturn given bookID and memberID, rather than just bookID.
-- Update Log to a CSV (makes reccomendations easier.) (I.e. Loan Date, Return Date (-1 if unreturned), MemberID, Book, Genre)
 - Docstrings
+- Make backup database function, and backup log function.
 
 ~~~ Completed (or near enough) ~~~ 
 - BookCheckout

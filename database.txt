@@ -8,4 +8,4 @@ ID,Genre,Title,Author,Purchase Date,Member ID
 7,Fantasy,The Lord Of The Rings,J. R. R. Tolkien,04/10/03,coai
 8,Fantasy,The Hobbit or There and Back Again,J. R. R. Tolkien,04/10/03,0
 9,Non-Fiction,Discrete mathematics and its applications,Kenneth H. Rosen,10/05/05,coai
-10,Non-Fiction,Discrete mathematics with applications,Susanna S. Epp,10/05/05,coai
+10,Non-Fiction,Discrete mathematics with applications,Susanna S. Epp,10/05/05,0

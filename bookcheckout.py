@@ -14,7 +14,7 @@ def bookCheckout(memberID, bookID):
             bookOut = database.libraryDatabase[bookID][5]
             # Check if the book is currently loaned
             if bookOut == "0":
-                database.libraryDatabase[bookID][5] = memberID
+                database.libraryDatabase[bookID][5] = memberID.lower()
                 with open('database.txt', 'w') as csvFile:
                     for rows in database.libraryDatabase:
                         csvFile.write(f"{','.join(rows)}\n")
@@ -24,7 +24,7 @@ def bookCheckout(memberID, bookID):
                     currDate = date.today()
                     currDate = currDate.strftime("%d/%m/%Y")
                     genre = database.libraryDatabase[bookID][1]
-                    logFile.write(f"{currDate}, -1, {memberID}, {bookID}, {genre}")
+                    logFile.write(f"{currDate},-1,{memberID},{bookID},{genre}")
             else:
                 print(f"Book currently loaned to {bookOut}")
         else:
