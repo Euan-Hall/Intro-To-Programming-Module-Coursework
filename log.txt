@@ -1,3 +1,5 @@
 LoanDate, ReturnDate, MemberID, BookID, Genre
-14/11/2021,15/11/2021, coeh, 10, Non-Fiction
-11/11/2021, -1, coeh, 7, Non-Fiction
+16/11/2021,16/11/2021,coeh,7,Fantasy
+16/11/2021,16/11/2021,coeh,10,Non-Fiction
+11/01/2021,16/11/2021,coeh,7,Non-Fiction
+14/11/2021,15/11/2021,coeh,10,Non-Fiction

@@ -1,4 +1,6 @@
-import bookcheckout, bookreturn, booksearch
+import bookcheckout, bookreturn, booksearch, recommendBook
+import random
+
 
 def printBooks(book):
     """Prints out the books after a search. Book -> List"""
@@ -10,13 +12,14 @@ def printBooks(book):
         print(f"Loaned: {i[5] != '0'}")
         count += 1
 
+
 def main():
     while True:
         print("""Welcome to the library! What do you want to do?
     ------------------------------------------------------------
         1. Loan book
-        2. Retrun book
-        3. Reccomend book (Unfinished)
+        2. Return book
+        3. Recommend book (Unfinished)
         4. Search for a book
         5. Quit
     ------------------------------------------------------------""")
@@ -24,12 +27,11 @@ def main():
         try: choice = int(input("Choice: "))
         except ValueError: choice = -1
 
-        # Call functions based on choice, and if it matches the choice
+        # Call functions based on choice, and if it matches the choice	
         match choice:
             case 1:
                 # Find the book to loan
                 book = str(input("What book do you want to loan? "))
-                memberID = str(input("What is your ID? "))
                 book = booksearch.search(book)
 
                 # Check if it exists
@@ -38,12 +40,12 @@ def main():
                     print("--------------------")
                     # Find the book to loan
                     book = str(input("Which ID of the book do you want to loan? "))
+                    memberID = str(input("What is your ID? "))
                     bookcheckout.bookCheckout(memberID, book)
                 else:
                     print("No book found.")
                     print("--------------------")
 
-                
             case 2:
                 # Returns a book given the bookID
                 book = str(input("What book do you want to return (ID)? "))
@@ -53,8 +55,11 @@ def main():
                 # Sum together the same genres, make a ratio out of them
                 # Find the probability from them, and pick a random number
                 # If that random number is bigger than the given P, it's not that genre
-                
-                print("dude.")
+                memberID = str(input("What is your ID? "))
+                books = recommendBook.recommendBook(memberID)
+                print(f"Recommended genre for {memberID}: {random.choice(books)}")
+
+
             case 4:
                 # Calls the booksearch function
                 book = str(input("What book do you want to search? "))

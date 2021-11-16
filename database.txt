@@ -1,11 +1,11 @@
 ID,Genre,Title,Author,Purchase Date,Member ID
-1,Sci-Fi,1984,George Orwell,07/08/21,coeh
-2,Fantasy,Warrior Cats,Erin Hunter,24/07/17,coai
+1,Sci-Fi,1984,George Orwell,07/08/21,0
+2,Fantasy,Warrior Cats,Erin Hunter,24/07/17,0
 3,Non-Fiction,Automate the Boring Stuff with Python,Al Sweigart,18/03/20,0
-4,Sci-Fi,Dune,Frank Herbert,13/03/07,coeh
+4,Sci-Fi,Dune,Frank Herbert,13/03/07,0
 5,Sci-Fi,The Martian,Andy Weir,31/07/12,0
-6,Sci-Fi,Snow Crash,Neal Stphenson,05/10/10,coai
-7,Fantasy,The Lord Of The Rings,J. R. R. Tolkien,04/10/03,coai
+6,Sci-Fi,Snow Crash,Neal Stphenson,05/10/10,0
+7,Fantasy,The Lord Of The Rings,J. R. R. Tolkien,04/10/03,0
 8,Fantasy,The Hobbit or There and Back Again,J. R. R. Tolkien,04/10/03,0
-9,Non-Fiction,Discrete mathematics and its applications,Kenneth H. Rosen,10/05/05,coai
+9,Non-Fiction,Discrete mathematics and its applications,Kenneth H. Rosen,10/05/05,0
 10,Non-Fiction,Discrete mathematics with applications,Susanna S. Epp,10/05/05,0

@@ -1,9 +1,6 @@
 ~~~ TO DO ~~~
-- Check if book is out for more than 60 days (make it a function to call, less coding innit)
-
-- Remove header from database while running, but not from CSV
 - Make GUI for library system
-- Reccomend book
+- Recommend the most popular book
 - Docstrings
 - Make backup database function, and backup log function.
 
