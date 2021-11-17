@@ -1,6 +1,6 @@
 import bookcheckout, bookreturn, booksearch, recommendBook
 import random
-
+import tkinter as tk
 
 def printBooks(book):
     """Prints out the books after a search. Book -> List"""
@@ -13,7 +13,38 @@ def printBooks(book):
         count += 1
 
 
+
 def main():
+    # Loading the GUI
+    root = tk.Tk()
+
+    # Creating the buttons and text
+    welcome = tk.Label(text="Welcome to the library! What do you want to do?")
+    searchButton = tk.Button(text="Search for book")
+    loanBookButton = tk.Button(text="Loan book")
+    returnBookButton = tk.Button(text="Return book")
+    recommendBookButton = tk.Button(text="Recommend book")
+    warning = tk.Label(text="")
+    
+    bookInputText = tk.Label(text="Book ID:")
+    memberIDText = tk.Label(text="Member ID:")
+    bookInput = tk.Entry()
+    memerIDInput = tk.Entry()
+
+    # Packing the buttons and text
+    welcome.grid(row=0, column=0)
+    searchButton.grid(row=1, column=0)
+    loanBookButton.grid(row=1, column=1)
+    returnBookButton.grid(row=2, column=0)
+    recommendBookButton.grid(row=2, column=1)
+    bookInputText.grid(row=3, column=0)
+    bookInput.grid(row=3, column=1)
+    memberIDText.grid(row=4, column=0)
+    memerIDInput.grid(row=4, column=1)
+    warning.grid(row=5, column=0)
+
+    
+    root.mainloop()
     while True:
         print("""Welcome to the library! What do you want to do?
     ------------------------------------------------------------
@@ -57,7 +88,7 @@ def main():
                 # If that random number is bigger than the given P, it's not that genre
                 memberID = str(input("What is your ID? "))
                 books = recommendBook.recommendBook(memberID)
-                print(f"Recommended genre for {memberID}: {random.choice(books)}")
+                print(f"Recommended genre for {books}: {books}")
 
 
             case 4:
