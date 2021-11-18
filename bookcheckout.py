@@ -11,6 +11,7 @@ def bookCheckout(memberID, bookID):
     if len(memberID) == 4 and re.search("([a-zA-z]{4})", memberID):
 
         # Check for any books the member has out on loan greater than 60 days
+        loanedDates = []
         with open('log.txt')as logFile:
             reader = csv.reader(logFile, delimiter = ',')
             for row in reader:
@@ -18,9 +19,7 @@ def bookCheckout(memberID, bookID):
                 if row[2] == memberID and row[1] == "-1":
                     print("a")
                     dateDifference = checkDate(row)
-                    dateDifference = dateDifference[0]
-                    if dateDifference.days >60:
-                        print(f"Book {row[3]} has been out for {dateDifference} day(s).")
+                    loanedDates.append([dateDifference[0], row[3]])
 
         try: bookID = int(bookID)
         except ValueError: bookID = -1
@@ -35,7 +34,6 @@ def bookCheckout(memberID, bookID):
                 with open('database.txt', 'w') as csvFile:
                     for rows in database.libraryDatabase:
                         csvFile.write(f"{','.join(rows)}\n")
-                print("Book checked out, Updated database.")
 
                 # Updates log
                 with open('log.txt', 'a')as logFile:
@@ -43,12 +41,13 @@ def bookCheckout(memberID, bookID):
                     currDate = currDate.strftime("%d/%m/%Y")
                     genre = database.libraryDatabase[bookID][1]
                     logFile.write(f"{currDate},-1,{memberID},{bookID},{genre}")
+                return ("Book checked out, Updated database.\n", loanedDates)
             else:
                 # Book is loaned
-                print(f"Book currently loaned to {bookOut}")
+                return (f"Book currently loaned to {bookOut}\n", loanedDates)
         else:
-            print("Invalid bookID.")
+            return "Invalid bookID.\n"
     else:
-        print("Invalid memberID.")
+        return "Invalid memberID.\n"
 
     

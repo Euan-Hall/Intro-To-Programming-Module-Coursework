@@ -6,9 +6,10 @@ def search(bookName):
     bookFound = False
     books = []
     count = 0
-    for rows in database.libraryDatabase:
-        if not count:
-            continue
+    # Drop the header
+    libraryDatabase = database.libraryDatabase[1:]
+    for rows in libraryDatabase:
+        print(bookName.lower(), rows[2].lower())
         # Changes both paramaters to lowercase to reduce errors
         if bookName.lower() in rows[2].lower():
             books.append(rows)
