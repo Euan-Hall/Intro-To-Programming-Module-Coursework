@@ -15,15 +15,15 @@ def bookCheckout(memberID, bookID):
         with open('log.txt')as logFile:
             reader = csv.reader(logFile, delimiter = ',')
             for row in reader:
-                # Only find the difference if it has not been returned yet.
-                if row[2] == memberID and row[1] == "-1":
-                    print("a")
-                    dateDifference = checkDate(row)
-                    loanedDates.append([dateDifference[0], row[3]])
+                if row:
+                    # Only find the difference if it has not been returned yet.
+                    if row[2] == memberID and row[1] == "-1":
+                        dateDifference = checkDate(row)
+                        loanedDates.append([dateDifference[0], row[3]])
 
         try: bookID = int(bookID)
         except ValueError: bookID = -1
-        if 1 < bookID <= len(database.libraryDatabase)-1:
+        if 1 <= bookID <= len(database.libraryDatabase)-1:
             # Updates the loaded database
             bookOut = database.libraryDatabase[bookID][5]
             
@@ -40,7 +40,7 @@ def bookCheckout(memberID, bookID):
                     currDate = date.today()
                     currDate = currDate.strftime("%d/%m/%Y")
                     genre = database.libraryDatabase[bookID][1]
-                    logFile.write(f"{currDate},-1,{memberID},{bookID},{genre}")
+                    logFile.write(f"{currDate},-1,{memberID},{bookID},{genre}\n")
                 return ("Book checked out, Updated database.\n", loanedDates)
             else:
                 # Book is loaned
@@ -48,6 +48,6 @@ def bookCheckout(memberID, bookID):
         else:
             return "Invalid bookID.\n"
     else:
-        return "Invalid memberID.\n"
+        return "Invalid memberID and/or bookID.\n"
 
     

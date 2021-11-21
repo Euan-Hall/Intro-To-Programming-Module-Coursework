@@ -1,6 +1,10 @@
-LoanDate, ReturnDate, MemberID, BookID, Genre
-16/11/2021,16/11/2021,coeh,7,Fantasy
-16/11/2021,16/11/2021,coeh,10,Non-Fiction
-11/01/2021,16/11/2021,coeh,7,Non-Fiction
-14/11/2021,15/11/2021,coeh,10,Non-Fiction
-18/11/2021,-1,coeh,10,Non-Fiction18/11/2021,-1,coeh,9,Non-Fiction
+LoanDate,ReturnDate,MemberID,BookID,Genre
+21/11/2021,21/11/2021,cotk,2,Fantasy
+21/11/2021,21/11/2021,copi,5,Sci-Fi
+11/11/2021,21/11/2021,coeh,7,Non-Fiction
+21/11/2021,21/11/2021,coeh,10,Non-Fiction
+21/11/2021,21/11/2021,copi,5,Sci-Fi
+21/11/2021,21/11/2021,coeh,10,Non-Fiction
+21/11/2021,21/11/2021,coeh,2,Fantasy
+21/11/2021,21/11/2021,coeh,2,Fantasy
+21/11/2021,21/11/2021,coeh,2,Fantasy

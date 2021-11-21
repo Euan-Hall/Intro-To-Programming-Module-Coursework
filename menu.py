@@ -15,6 +15,7 @@ def printBooks(book):
         searchResults.insert(tk.END, f"Loaned: {i[5] != '0'}\n")
         
 def loan():
+    """ Loans a book given a bookInput value"""
     # Find the book to loan
     searchResults.delete('1.0', tk.END)
     book = bookInput.get()
@@ -37,21 +38,42 @@ def loan():
 
 
 def returnBook():
+    """ Returns a book depending on the bookInput value """
     # Returns a book given the bookID
-    book = str(input("What book do you want to return (ID)? "))
-    bookreturn.bookReturn(book)
+    searchResults.delete('1.0', tk.END)
+    book = bookInput.get()
+    returnResult = bookreturn.bookReturn(book)
+    if type(returnResult) == tuple:
+        searchResults.insert(tk.END, returnResult[0])
+        searchResults.insert(tk.END, f"Book has been out for {returnResult[1].days} days\n")
+    else:
+        searchResults.insert(tk.END,returnResult)
+    
+    
 
 def recommend():
+    """ Recommends a book from a given memberID, if the memberID hasn't
+        loaned any books, the top 3 genres are displayed."""
     # Recommends a book
-    memberID = str(input("What is your ID? "))
-    books = recommendBook.recommendBook(memberID)
-    print(f"Recommended genre for {books}: {books}")
+    searchResults.delete('1.0', tk.END)
+    memberID = memberIDInput.get()
+    if memberID:
+        books = recommendBook.recommendBook(memberID)
+        random.shuffle(books)
+        if type(books) == tuple:
+            searchResults.insert(tk.END,books[0])
+        else:
+            searchResults.insert(tk.END,f"Recommended book for {memberID}:\n")
+            for row in books:
+                searchResults.insert(tk.END,f"{row}\n")
+                
+    else:
+        searchResults.insert(tk.END,f"No memberID entered")
 
 def search():
     # Calls the booksearch function
     searchResults.delete('1.0', tk.END)
     book = bookInput.get()
-    print(book)
     book = booksearch.search(book)
 
     # If the list returned isn't empty, print all the items in the list

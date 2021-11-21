@@ -37,6 +37,7 @@ def bookReturn(bookID):
                 reader = csv.reader(logFile, delimiter = ',')
                 for row in reader:
                     logRead.append(row)
+            print(logRead)
 
             # Read from end of file to the beginning for recent activity.
             logRead.reverse()
@@ -46,8 +47,6 @@ def bookReturn(bookID):
                 if int(row[3]) == bookID:
                     # Find the number of days it has been loaned out
                     dateDifference, todayLog = checkDate(row)
-                    if dateDifference.days > 60:
-                        print(f"Book has been out for {dateDifference.days} days.")
                         
 
                     # Update database
@@ -60,14 +59,16 @@ def bookReturn(bookID):
                     row[1] = todayLog
                     with open('log.txt', 'w') as logFile:
                         line = 0
+                        logRead.reverse()
                         for row in logRead:
+                            print(row)
                             if line == 0: logFile.write(header)
                             # Could do ','.join() but it adds spaces...gonna check later
-                            logFile.write(f"{row[0]},{row[1]},{row[2]},{row[3]},{row[4]}")
+                            logFile.write(f"{row[0]},{row[1]},{row[2]},{row[3]},{row[4]}\n")
                             line += 1
-                    print("Book returned, Updated database.")
+                    return ("Book returned, Updated database.\n", dateDifference)
                     break
         else:
-            print("Book not loaned.")
+            return "Book not loaned"
     else:
-        print("Invalid bookID.")
+        return "Invalid BookID"
