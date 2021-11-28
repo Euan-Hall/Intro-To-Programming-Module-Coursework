@@ -10,19 +10,35 @@ import random
 def recommendGenre(memberID):
     """Recommends genre given the memberID"""
     # Check if memberID is valid
-    if len(memberID) == 4 and re.search("([a-zA-z]{4})", memberID):
+    if len(memberID) == 4 and re.search("([a-zA-z])", memberID):
         memberBooks = []
         allBooks = []
         with open('log.txt')as logFile:
             reader = csv.reader(logFile, delimiter = ',')
             for row in reader:
-                allBooks.append(row[4])
-                # Find what genre of books have been loaned to memberID
-                if row[2] == memberID:
-                    memberBooks.append(row[4])
+                if row:
+                    # Find what genre of books have been loaned to memberID
+                    allBooks.append(row[4])
+                    if row[2] == memberID:
+                        memberBooks.append(row[4])
         if memberBooks:
             return random.choice(memberBooks)
-    return random.choice(allBooks)
+        return random.choice(allBooks)
+    else:
+        return ("Invalid MemberID", 0)
+
+def popularGenres():
+    allBooks = []
+    count = 0
+    with open('log.txt')as logFile:
+        reader = csv.reader(logFile, delimiter = ',')
+        for row in reader:
+            if not count:
+                count += 1
+                continue
+            if row:
+                allBooks.append(row[4])
+    return allBooks
 
 def recommendBook(memberID):
     """Recommends genre given the memberID"""
