@@ -2,6 +2,7 @@ from matplotlib.figure import Figure
 from matplotlib.pyplot import close
 from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg,NavigationToolbar2Tk)
 import bookcheckout, bookreturn, booksearch, recommendBook
+import testing
 import random
 import tkinter as tk
 
@@ -192,9 +193,16 @@ buttonInputFrame.grid(row=0, column=0)
 
 graphFrame.grid(row=0, column=3, padx=10, pady=10)
 
-# Load the window
-root.mainloop()
+
 
                 
 if __name__ == "__main__":
-    main()
+    # Testing
+    testing.testBookCheckout()
+    testing.testBookReturn()
+    testing.testBookSearch()
+    testing.testRecommendBook()
+
+    # Load the window
+    root.mainloop()
+    

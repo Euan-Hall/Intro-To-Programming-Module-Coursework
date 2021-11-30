@@ -26,7 +26,7 @@ def bookReturn(bookID):
     bookID -> String
     """
     # Checks if bookID is valid
-    bookID = ''.join(bookID.split()).split(',') # Remove whitespaces split via comma
+    bookID = ''.join(str(bookID).split()).split(',') # Remove whitespaces split via comma
     results = []
     for item in bookID:
         try: item = int(item)

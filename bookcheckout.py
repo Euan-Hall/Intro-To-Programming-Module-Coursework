@@ -21,8 +21,8 @@ def bookCheckout(memberID, bookID):
                         dateDifference = checkDate(row)
                         if dateDifference[0].days > 60:
                             loanedDates.append([dateDifference[0], row[3]])
-
-        bookID = ''.join(bookID.split()).split(',') # Remove whitespaces split via comma
+                                
+        bookID = ''.join(str(bookID).split()).split(',') # Remove whitespaces split via comma
         results = []
         for item in bookID:
             try: item = int(item)
@@ -53,6 +53,6 @@ def bookCheckout(memberID, bookID):
                 results.append(f"Invalid bookID, {item}.\n")
         return results
     else:
-        return "Invalid memberID and/or bookID.\n"
+        return "Invalid memberID\n"
 
     
