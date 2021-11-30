@@ -15,39 +15,44 @@ def bookCheckout(memberID, bookID):
         with open('log.txt')as logFile:
             reader = csv.reader(logFile, delimiter = ',')
             for row in reader:
-                # Only find the difference if it has not been returned yet.
-                if row[2] == memberID and row[1] == "-1":
-                    print("a")
-                    dateDifference = checkDate(row)
-                    loanedDates.append([dateDifference[0], row[3]])
+                if row:
+                    # Only find the difference if it has not been returned yet.
+                    if row[2] == memberID and row[1] == "-1":
+                        dateDifference = checkDate(row)
+                        if dateDifference[0].days > 60:
+                            loanedDates.append([dateDifference[0], row[3]])
 
-        try: bookID = int(bookID)
-        except ValueError: bookID = -1
-        if 1 < bookID <= len(database.libraryDatabase)-1:
-            # Updates the loaded database
-            bookOut = database.libraryDatabase[bookID][5]
-            
-            # Check if the book is currently unloaned
-            if bookOut == "0":
-                # Updates database
-                database.libraryDatabase[bookID][5] = memberID.lower()
-                with open('database.txt', 'w') as csvFile:
-                    for rows in database.libraryDatabase:
-                        csvFile.write(f"{','.join(rows)}\n")
+        bookID = ''.join(bookID.split()).split(',') # Remove whitespaces split via comma
+        results = []
+        for item in bookID:
+            try: item = int(item)
+            except ValueError: item = -1
+            if 1 <= item <= len(database.libraryDatabase)-1:
+                # Updates the loaded database
+                bookOut = database.libraryDatabase[item][5]
+                
+                # Check if the book is currently unloaned
+                if bookOut == "0":
+                    # Updates database
+                    database.libraryDatabase[item][5] = memberID.lower()
+                    with open('database.txt', 'w') as csvFile:
+                        for rows in database.libraryDatabase:
+                            csvFile.write(f"{','.join(rows)}\n")
 
-                # Updates log
-                with open('log.txt', 'a')as logFile:
-                    currDate = date.today()
-                    currDate = currDate.strftime("%d/%m/%Y")
-                    genre = database.libraryDatabase[bookID][1]
-                    logFile.write(f"{currDate},-1,{memberID},{bookID},{genre}")
-                return ("Book checked out, Updated database.\n", loanedDates)
+                    # Updates log
+                    with open('log.txt', 'a')as logFile:
+                        currDate = date.today()
+                        currDate = currDate.strftime("%d/%m/%Y")
+                        genre = database.libraryDatabase[item][1]
+                        logFile.write(f"{currDate},-1,{memberID},{item},{genre}\n")
+                    results.append((f"Book, {item}, checked out, Updated database.\n", loanedDates))
+                else:
+                    # Book is loaned
+                    results.append((f"Book, {item}, currently loaned to {bookOut}.\n", loanedDates))
             else:
-                # Book is loaned
-                return (f"Book currently loaned to {bookOut}\n", loanedDates)
-        else:
-            return "Invalid bookID.\n"
+                results.append(f"Invalid bookID, {item}.\n")
+        return results
     else:
-        return "Invalid memberID.\n"
+        return "Invalid memberID and/or bookID.\n"
 
     

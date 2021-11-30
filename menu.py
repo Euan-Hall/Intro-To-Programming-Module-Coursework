@@ -1,3 +1,6 @@
+from matplotlib.figure import Figure
+from matplotlib.pyplot import close
+from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg,NavigationToolbar2Tk)
 import bookcheckout, bookreturn, booksearch, recommendBook
 import random
 import tkinter as tk
@@ -15,6 +18,7 @@ def printBooks(book):
         searchResults.insert(tk.END, f"Loaned: {i[5] != '0'}\n")
         
 def loan():
+    """ Loans a book given a bookInput value"""
     # Find the book to loan
     searchResults.delete('1.0', tk.END)
     book = bookInput.get()
@@ -24,34 +28,66 @@ def loan():
         searchResults.insert(tk.END, "Invalid BookID.\n")
     else:
         result = bookcheckout.bookCheckout(memberID, book)
+        print(result)
 
         # Display results
-        if type(result) == tuple:
-            searchResults.insert(tk.END, result[0])
-            for item in result[1]:
-                searchResults.insert(tk.END,
-                                     f"Book {item[1]} has been out for {item[0].days} days\n")
-        else:
-            searchResults.insert(tk.END, result)
+        for item in result:
+            if type(item) == tuple:
+                searchResults.insert(tk.END, item[0])
+                for element in item[1]:
+                    if element[1] != []:
+                        searchResults.insert(tk.END,
+                                             f"Book {element[1]} has been out for {element[0].days} days\n")
+                        
+            else:
+                searchResults.insert(tk.END, item)
+    plotBooks()
         
 
 
 def returnBook():
+    """ Returns a book depending on the bookInput value """
     # Returns a book given the bookID
-    book = str(input("What book do you want to return (ID)? "))
-    bookreturn.bookReturn(book)
+    searchResults.delete('1.0', tk.END)
+    book = bookInput.get()
+    returnResult = bookreturn.bookReturn(book)
+
+    for item in returnResult:
+        print(item)
+        if type(item) == tuple:
+            print(item[0])
+            searchResults.insert(tk.END, item[0])
+            for element in item[1]:
+                if element[1] != []:
+                    searchResults.insert(tk.END, f"Book has been out for {element[0].days} days\n")
+        else:
+            searchResults.insert(tk.END,f"{item}\n")
+    
+    plotBooks()    
 
 def recommend():
+    """ Recommends a book from a given memberID, if the memberID hasn't
+        loaned any books, the top 3 genres are displayed."""
     # Recommends a book
-    memberID = str(input("What is your ID? "))
-    books = recommendBook.recommendBook(memberID)
-    print(f"Recommended genre for {books}: {books}")
+    searchResults.delete('1.0', tk.END)
+    memberID = memberIDInput.get()
+    if memberID:
+        books = recommendBook.recommendBook(memberID)
+        random.shuffle(books)
+        if type(books) == tuple:
+            searchResults.insert(tk.END,books[0])
+        else:
+            searchResults.insert(tk.END,f"Recommended book for {memberID}:\n")
+            for row in books:
+                searchResults.insert(tk.END,f"{row}\n")
+                
+    else:
+        searchResults.insert(tk.END,f"No memberID entered")
 
 def search():
     # Calls the booksearch function
     searchResults.delete('1.0', tk.END)
     book = bookInput.get()
-    print(book)
     book = booksearch.search(book)
 
     # If the list returned isn't empty, print all the items in the list
@@ -60,7 +96,36 @@ def search():
     else:
         searchResults.insert(tk.END, "No books found.")
 
+def plotBooks():
+    fig.clear()
 
+    # list of squares
+    genres = recommendBook.popularGenres()
+    genres.sort()
+    x = list(dict.fromkeys(genres))
+    sorted(x)
+    y = []
+    curr = genres[0]
+    count = 0
+    for i in enumerate(genres):
+        if i[1] == curr:
+            count += 1
+        else:
+            curr = i[1]
+            y.append(count)
+            count = 1
+    y.append(count)
+    # adding the subplot
+    barChart = fig.add_subplot(111)
+    barChart.bar(x, y, align='center', alpha=0.5)
+    barChart.set_title('Popular Genres')
+
+    # creating the canvas containing the Matplotlib figure
+    canvas.draw()
+
+    # placing the canvas on the window
+    canvas.get_tk_widget().pack()
+    
 
 # Loading the GUI
 root = tk.Tk()
@@ -68,6 +133,7 @@ textFrame = tk.Frame(root)
 buttonInputFrame = tk.Frame(root)
 buttonFrame = tk.Frame(buttonInputFrame)
 buttonInput = tk.Frame(buttonInputFrame)
+graphFrame = tk.Frame(root)
 
 
 # Creating the buttons and text
@@ -108,6 +174,11 @@ returnBookButton.grid(row=3, column=0)
 recommendBookButton.grid(row=4, column=0)
 buttonFrame.grid(row=0, column=0)
 
+# Plot barchart for popular genres
+fig = Figure(figsize=(4,2), dpi=100)
+canvas = FigureCanvasTkAgg(fig, master=graphFrame)  
+plotBooks()
+
 # Own frame
 bookInputText.grid(row=3, column=0)
 bookInput.grid(row=3, column=1)
@@ -116,8 +187,10 @@ memberIDInput.grid(row=4, column=1)
 buttonInput.grid(row=2, column=0)
 
 buttonInputFrame.grid(row=0, column=0)
+
 # Warning in book results?
 
+graphFrame.grid(row=0, column=3, padx=10, pady=10)
 
 # Load the window
 root.mainloop()
