@@ -33,15 +33,19 @@ def testBookCheckout():
     print(f"bookCheckout({memberID}, {bookID}) := {result}")
     testResult = result == [('Book, 5, checked out, Updated database.\n', [])]
     print(f"Test {'passed'*testResult}{'failed'*(not testResult)}")
-    bookReturn(bookID)
 
+    # Book Return, correct bookID
+    result = bookReturn(bookID)
+    testResult =  result == ['Book 5 returned, Updated database.']
+    print(f"bookReturn({bookID}) := {result}")
+    print(f"Test {'passed'*testResult}{'failed'*(not testResult)}")
+    
     
 def testBookReturn():
-    pass
-
-def testBookSearch():
-    pass
-
-def testRecommendBook():
-    pass
+    # Invalid bookID
+    bookID = -1
+    result = bookReturn(bookID)
+    testResult =  result == ['Invalid BookID']
+    print(f"bookReturn({bookID}) := {result}")
+    print(f"Test {'passed'*testResult}{'failed'*(not testResult)}")
     

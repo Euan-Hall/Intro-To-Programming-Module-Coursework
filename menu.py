@@ -128,6 +128,13 @@ def plotBooks():
     canvas.get_tk_widget().pack()
     
 
+def light_mode():
+    root['bg'] = 'SystemButtonFace'
+
+def dark_mode():
+    root['bg'] = '#121212'
+    buttonFrame['bg'] = '#121212'
+
 # Loading the GUI
 root = tk.Tk()
 textFrame = tk.Frame(root)
@@ -136,6 +143,19 @@ buttonFrame = tk.Frame(buttonInputFrame)
 buttonInput = tk.Frame(buttonInputFrame)
 graphFrame = tk.Frame(root)
 
+root.title("Library")
+
+
+
+# Creating the menuBar
+menubar = tk.Menu(root)
+menuStyle = tk.Menu(menubar)
+menubar.add_cascade(menu=menuStyle, label='Options')
+menuStyle.add_command(label='Dark Mode', command=dark_mode)
+menuStyle.add_command(label='Light Mode', command=light_mode)
+menuStyle.add_separator()
+menuStyle.add_command(label='Quit', command=quit)
+root['menu'] = menubar
 
 # Creating the buttons and text
 
@@ -200,8 +220,6 @@ if __name__ == "__main__":
     # Testing
     testing.testBookCheckout()
     testing.testBookReturn()
-    testing.testBookSearch()
-    testing.testRecommendBook()
 
     # Load the window
     root.mainloop()
